@@ -110,12 +110,18 @@ class TodoController extends AbstractController
     /**
      * @Route("/deletetodo", name="app_todo_delete_tododone")
      */
-    public function deleteTodoDone(TodoRepository $todoRepository): Response
+    public function deleteTodoDone(Request $request, TodoRepository $todoRepository): Response
     {
         $todos = $todoRepository->findBy(['state' => true]);
         
         foreach($todos as $todo) {
             $todoRepository->remove($todo);
+        }
+
+        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
+            foreach($todos as $todo) {
+                $todoRepository->remove($todo);
+            }
         }
 
         return $this->redirectToRoute('app_todo_index', [], Response::HTTP_SEE_OTHER);

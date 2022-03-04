@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâche à faire{% endblock %}
+
+{% block body %}
+    <h1>Tâche</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ todo.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ todo.name }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ todo.state ? 'Fait' : 'A faire' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_todo_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}">Editer</a>
+
+    {{ include('todo/_delete_form.html.twig') }}
+{% endblock %}

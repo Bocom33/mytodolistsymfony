@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer une Tâche{% endblock %}
+
+{% block body %}
+    <h1>Editer une Tâche</h1>
+    
+    {{ include('todo/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    {{ include('todo/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_todo_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    
+{% endblock %}

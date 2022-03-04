@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo index{% endblock %}
+
+{% block body %}
+    <h1>Liste des Tâches</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for todo in todos %}
+            <tr>
+                <td>{{ todo.id }}</td>
+                <td>{{ todo.name }}</td>
+                <td>
+                    {% if todo.state == true %}
+                        <a href="{{ path('app_todo_state', {'id': todo.id}) }}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit">{{ todo.state ? 'Fait' : 'A faire' }}</i></a>
+                    {% endif %}
+                    {% if todo.state == false %}
+                        <a href="{{ path('app_todo_state', {'id': todo.id}) }}" class="btn btn-warning btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit">{{ todo.state ? 'Fait' : 'A faire' }}</i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_todo_edit', {'id': todo.id}) }}" class="btn btn-secondary">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Vous n'avez pas encore de Tâches.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_todo_delete_tododone') }}" class="btn btn-danger" role="button" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer les tâches déjà faites ?');">Supprimer les tâches faites</button>
+    <a href="{{ path('app_todo_new') }}" class="btn btn-primary" role="button">Créer une nouvelle Tâche</a>
+{% endblock %}
